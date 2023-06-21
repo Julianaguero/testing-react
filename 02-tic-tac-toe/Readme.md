@@ -1,7 +1,7 @@
 
 ## Tic-Tac-Toe Game
 
-A tic-tac-toe game built using React and CSS. This game allows players to compete against each other in a classic tic-tac-toe match. The game state is stored in the browser's localStorage, allowing players to continue the game even after refreshing the page. The application can be accessed through the following link: [Tic-Tac-Toe Game](https://jaguero-tictactoe.netlify.app){:target=”_blank”}.
+A tic-tac-toe game built using React and CSS. This game allows players to compete against each other in a classic tic-tac-toe match. The game state is stored in the browser's localStorage, allowing players to continue the game even after refreshing the page. The application can be accessed through the following link: [Tic-Tac-Toe Game](https://jaguero-tictactoe.netlify.app)
 
 ### Features
 
