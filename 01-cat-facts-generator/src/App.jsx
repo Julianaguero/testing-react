@@ -1,43 +1,29 @@
-import { useEffect, useState } from 'react'
-import { getRandomFact } from '../services/facts'
+import { useCatFact } from './hooks/useCatFact'
+import { useCatImage } from './hooks/useCatImage'
 
-// creo const con las direcciones de acceso, ya que podemos tener diferentes variables de entorno y facilita su modificacion
-const CAT_PREFIX_URL = 'https://cataas.com/'
 
 function App() {
-
-  const [fact, setFact] = useState("this is a random fact")
-  const [image, getImage] = useState()
-
-  useEffect(() => {
-    getRandomFact().then(setFact)
-  }, [])
-  // Usamos para recuperar una img cada vez que tenemos una cita nueva
-  useEffect(() => {
-    // el condicional "si no hay un fact" return es para prevenir un error, porque la primera vez que se renderiza el primer fact es "undefined"  
-    if (!fact) return
-    const firstThreeWords = fact.split(' ', 3).join(' ')
-
-    fetch(`https://cataas.com/cat/says/${firstThreeWords}?json=true`)
-      .then(res => res.json())
-      .then(response => {
-        const { url } = response
-        //dejo el prefijo del sitio web por fuera del useEffect para tener la minima informacion en el hook
-        getImage(url)
-      })
-  }, [fact])
+  const { fact, refreshFact} = useCatFact()
+  const { imageUrl } = useCatImage({ fact })
 
   const handleClick = async () => {
-    const newFact = await getRandomFact()
-    setFact(newFact)
+    refreshFact()
   }
 
+
+
   return (
-    <main className=' h-screen flex flex-col aling-center justify-center p-10 max-w-lg mx-auto'>
-      <h1 className=' text-3xl font-bold text-center mb-4'>Este es un generador de facts random</h1>
-      {fact && <p className='mb-4'>{fact}</p>}
-      {image && <img className='object-cover h-96 w-auto   mb-4' src={`${CAT_PREFIX_URL}${image}`} alt={`This is an image showing the first three words of ${fact}`} />}
-      <button className='border-slate-950 border-2 bg-amber-300 rounded-md hover:bg-amber-200 w-32 mx-auto inline' onClick={handleClick}> Get new fact </button>
+    <main className='bg-slate-400'>
+      <section className='h-screen flex flex-col aling-center justify-center p-10 max-w-lg mx-auto'>
+        <h1 className=' text-3xl font-bold  text-center mb-8'>Cat Facts Generator 🐱</h1>
+        {fact && <p className='mb-4 '>{fact}</p>}
+        {imageUrl && <img
+                className='object-cover lg:h-4/6 w-auto mb-4 h-auto'
+                src={imageUrl}
+                alt={`This is an image showing the first three words of the cat fact`} />
+            }
+        <button className='border-slate-950 border-2 bg-sky-800 rounded-md hover:bg-sky-600 text-white w-40 mx-auto inline' onClick={handleClick}> Get new fact  🐈</button>
+      </section>
     </main>
   )
 }

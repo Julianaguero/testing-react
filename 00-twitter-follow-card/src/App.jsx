@@ -7,8 +7,8 @@ import { TwitterFollowCard } from "./TwitterFollowCard";
     return (
     <section className="FollowCardContainer"> 
         {/* IMPORTANTE!! el userName es lo que se pasa como props */}
-        <TwitterFollowCard   userName="midudev">
-            Miguel Angel duran
+        <TwitterFollowCard   userName="martahidalgo">
+            Marta hidalgo
         </TwitterFollowCard>        
         <TwitterFollowCard  userName="pheralb">
             Pablo hernandez
